@@ -58,7 +58,7 @@ entity_counts_df_styled = entity_counts_df.style\
 st.write(entity_counts_df_styled)
 
 # Create Streamlit filters
-##st.write('### Select Entity')
+st.write('### Select Entity')
 selected_entity = st.selectbox('Select Entity', options=['All'] + list(entities))
 
 # Filter departments based on selected entity
