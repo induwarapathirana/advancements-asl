@@ -60,12 +60,12 @@ selected_entity = st.selectbox('Select Entity', options=['All'] + list(entities)
 ##st.write('### Select Durations and Status')
 col1, col2 = st.columns(2)
 with col1:
-    selected_duration = st.multiselect('Duration', options=durations, default=durations)
+    selected_duration = st.multiselect('Duration', options=durations, default=[])
 with col2:    
-    selected_status = st.multiselect('Status', options=status, default=status)
+    selected_status = st.multiselect('Status', options=status, default=[])
 
 ##st.write('### Select Functions')
-selected_functions = st.multiselect('Functions', options=functions, default=functions)
+selected_functions = st.multiselect('Functions', options=functions, default=[])
 
 
 # Apply additional filters based on user selection
