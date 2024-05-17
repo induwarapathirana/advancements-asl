@@ -28,7 +28,6 @@ active_data = data[data.iloc[:, 12] == 'Active Role']
 
 # Convert department column to strings and sort them alphabetically
 data.iloc[:, 11] = data.iloc[:, 11].astype(str)
-##departments = sorted(data.iloc[:, 11].unique())
 
 # Get unique values for the drop-down filters
 entities = sorted(data.iloc[:, 1].unique())
@@ -69,20 +68,16 @@ else:
     filtered_data = data[data.iloc[:, 1] == selected_entity]
     departments = sorted(filtered_data.iloc[:, 11].unique())
 
-
-##st.write('### Select Durations and Status')
 col1, col2 = st.columns(2)
 with col1:
     selected_duration = st.multiselect('Duration', options=durations, default=[])
 with col2:    
     selected_status = st.multiselect('Status', options=status, default=[])
 
-##st.write('### Select Functions')
 selected_functions = st.multiselect('Functions', options=functions, default=[])
 
 st.write('### Select Department')
 selected_department = st.selectbox('Department', options=['All'] + departments)
-
 
 # Apply additional filters based on user selection
 if selected_entity != 'All':
@@ -107,20 +102,21 @@ st.write('### Titles related to the selected department')
 title_counts = [{'Title': title, 'Record Count': data[data.iloc[:, 4] == title].shape[0]} for title in titles]
 title_counts_df = pd.DataFrame(title_counts)
 
-# Apply style to the title table
+# Apply style to the title table and set wider width for the Title column
 title_counts_df_styled = title_counts_df.style\
     .set_table_styles([{'selector': 'th',
                         'props': [('background-color', 'lightblue'),
                                   ('color', 'black'),
                                   ('border', '1px solid black')]},
                        {'selector': 'td',
-                        'props': [('border', '1px solid black')]}])\
-    .set_properties(**{'text-align': 'center'})
+                        'props': [('border', '1px solid black'),
+                                  ('max-width', '300px'),  # Adjust the width as needed
+                                  ('white-space', 'pre-wrap'),
+                                  ('word-wrap', 'break-word')]}])\
+    .set_properties(subset=['Title'], **{'text-align': 'center'})
 
 # Display the styled title table
 st.write(title_counts_df_styled)
-
-
 
 # Reset index to add indexing to the DataFrame
 data.reset_index(drop=True, inplace=True)
@@ -132,5 +128,3 @@ st.write(f"Total records: {len(data)}")
 st.write(data)
 
 # Create additional visualizations or data summaries as needed
-##st.line_chart(data)
-##st.bar_chart(data)
