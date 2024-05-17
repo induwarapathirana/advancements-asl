@@ -40,7 +40,7 @@ status = sorted(data.iloc[:, 12].unique())
 entity_counts = [{'Entity': entity, 'Record Count': active_data[active_data.iloc[:, 1] == entity].shape[0]} for entity in entities]
 
 # Display record counts for each entity in a 2-row table
-st.title('Record Counts for Each Entity')
+st.title('MX Realizations for Each Entity Term 24.25')
 entity_counts_df = pd.DataFrame(entity_counts)
 entity_counts_df = entity_counts_df.set_index('Entity').T
 
