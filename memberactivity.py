@@ -26,6 +26,10 @@ data = load_and_filter_data(csv_url, country, term)
 # Filter data for only active status
 active_data = data[data.iloc[:, 12] == 'Active Role']
 
+# Convert department column to strings and sort them alphabetically
+data.iloc[:, 11] = data.iloc[:, 11].astype(str)
+##departments = sorted(data.iloc[:, 11].unique())
+
 # Get unique values for the drop-down filters
 entities = sorted(data.iloc[:, 1].unique())
 functions = sorted(data.iloc[:, 6].unique())
@@ -57,6 +61,15 @@ st.write(entity_counts_df_styled)
 ##st.write('### Select Entity')
 selected_entity = st.selectbox('Select Entity', options=['All'] + list(entities))
 
+# Filter departments based on selected entity
+if selected_entity == 'All':
+    filtered_data = data
+    departments = sorted(data.iloc[:, 11].unique())
+else:
+    filtered_data = data[data.iloc[:, 1] == selected_entity]
+    departments = sorted(filtered_data.iloc[:, 11].unique())
+
+
 ##st.write('### Select Durations and Status')
 col1, col2 = st.columns(2)
 with col1:
@@ -66,6 +79,9 @@ with col2:
 
 ##st.write('### Select Functions')
 selected_functions = st.multiselect('Functions', options=functions, default=[])
+
+st.write('### Select Department')
+selected_department = st.selectbox('Department', options=['All'] + departments)
 
 
 # Apply additional filters based on user selection
@@ -77,6 +93,34 @@ if selected_duration:
     data = data[data.iloc[:, 8].isin(selected_duration)]
 if selected_status:
     data = data[data.iloc[:, 12].isin(selected_status)]
+if selected_department != 'All':
+    data = data[data.iloc[:, 11] == selected_department]
+
+# Get titles related to the selected department
+if selected_department != 'All':
+    titles = sorted(data.iloc[:, 4].unique())
+else:
+    titles = sorted(data.iloc[:, 4].unique())
+
+# Display titles related to the selected department
+st.write('### Titles related to the selected department')
+title_counts = [{'Title': title, 'Record Count': data[data.iloc[:, 4] == title].shape[0]} for title in titles]
+title_counts_df = pd.DataFrame(title_counts)
+
+# Apply style to the title table
+title_counts_df_styled = title_counts_df.style\
+    .set_table_styles([{'selector': 'th',
+                        'props': [('background-color', 'lightblue'),
+                                  ('color', 'black'),
+                                  ('border', '1px solid black')]},
+                       {'selector': 'td',
+                        'props': [('border', '1px solid black')]}])\
+    .set_properties(**{'text-align': 'center'})
+
+# Display the styled title table
+st.write(title_counts_df_styled)
+
+
 
 # Reset index to add indexing to the DataFrame
 data.reset_index(drop=True, inplace=True)
