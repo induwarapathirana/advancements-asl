@@ -49,5 +49,5 @@ if page == "Entity Overview":
     entity_overview(entity_counts)
 elif page == "Department Filtration":
     department_filtration(data, entities, functions, durations, status)
-elif page == "National Opportunities":
+elif page == "National Realizations":
     national_opps(csv_url)
