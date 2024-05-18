@@ -4,7 +4,7 @@ import pandas as pd
 def national_opps(csv_url):
     st.title('Term 2023-2024 | National Opportunities')
     
-    @st.cache_data
+    ##@st.cache_data
     def load_and_filter_data(url, country, term):
         filtered_data = pd.DataFrame()
         chunk_size = 10000  # Adjust chunk size based on your memory constraints
