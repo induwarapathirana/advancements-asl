@@ -43,8 +43,19 @@ entity_counts = [{'Entity': entity, 'Record Count': active_data[active_data.iloc
 
 # Navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.selectbox("Select a page", ["Entity Overview", "Department Filtration", "National Realizations"])
 
+# Initialize a variable to store the current page
+page = "Entity Overview"  # Default page
+
+# Create buttons for navigation
+if st.sidebar.button("Entity Overview"):
+    page = "Entity Overview"
+elif st.sidebar.button("Department Filtration"):
+    page = "Department Filtration"
+elif st.sidebar.button("National Realizations"):
+    page = "National Realizations"
+
+# Display the selected page
 if page == "Entity Overview":
     entity_overview(entity_counts)
 elif page == "Department Filtration":
