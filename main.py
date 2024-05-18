@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from entity_overview import entity_overview
 from department_filtration import department_filtration
+from national_opps import national_opps
 
 # URL of the CSV file in Google Drive
 csv_url = 'https://drive.google.com/uc?export=download&id=1DGIRK6IGibZB4wtYwgsQRx5o5IlxdLnp'
@@ -42,9 +43,11 @@ entity_counts = [{'Entity': entity, 'Record Count': active_data[active_data.iloc
 
 # Navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.selectbox("Select a page", ["Entity Overview", "Department Filtration"])
+page = st.sidebar.selectbox("Select a page", ["Entity Overview", "Department Filtration", "National Opportunities"])
 
 if page == "Entity Overview":
     entity_overview(entity_counts)
 elif page == "Department Filtration":
     department_filtration(data, entities, functions, durations, status)
+elif page == "National Opportunities":
+    national_opps(csv_url)
