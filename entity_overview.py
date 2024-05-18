@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 def entity_overview(entity_counts):
-    ##st.title('MX Realizations | Term 24.25')
+    st.title('MX Realizations | LC Term 24.25')
 
     # Create a flexible grid layout with 3 columns
     cols = st.columns(3)
