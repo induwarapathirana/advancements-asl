@@ -50,9 +50,9 @@ page = "Entity Overview"  # Default page
 # Create buttons for navigation
 if st.sidebar.button("Entity Overview"):
     page = "Entity Overview"
-elif st.sidebar.button("Department Filtration"):
+if st.sidebar.button("Department Filtration"):
     page = "Department Filtration"
-elif st.sidebar.button("National Realizations"):
+if st.sidebar.button("National Realizations"):
     page = "National Realizations"
 
 # Display the selected page
